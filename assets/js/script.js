@@ -1,117 +1,133 @@
 //const quizQues = require("./questions");
-
-
-console.log(questions)
-
 let currentQuestion = 0; 
 
+let currentQuestionIndex = 0;
+let timeCountElement = document.getElementById("timeCount");
 
 
-quesOptContainer.classList.add("hide");
-
+var timer; 
+let timeLeft = 20; //amount of time want(in seconds)
 
 function beginQuiz(){
     begbtn.classList.add("hide");
     quesOptContainer.classList.remove("hide");
-    showQuestion(questions[currentQuestionIndex]);
-}
-
-
+    showQuestion(questionsArray[currentQuestionIndex]);
+};
 
 function showQuestion(question){
-   ques.innerText = questions.question
-   
-   question.options.forEach(answer => {
-    const ansbtn = document.createElement("ansbtn")
-    ansbtn.innerText = answer.text;
-    if(answer.correct){
-        ansbtn.dataset.correct = answer.correct;     
-    }
-    ansbtn.addEventListener("click", selectOption); 
-  
-   })
-}
+    let quesElement = document.getElementById("ques");
+    let optElement = document.getElementById("options")
+    // console.log(question);
 
-
-//next question 
-function answerQuestion(){
-    
-}
-
-
-
-var timer; //this is declaring the timer variable. set globally so can stop the timer when needed
-
-let timeLeft = 10;
-
-
-
-
-function stopQuiz(){
-
-    console.log("quiz listen")
+   quesElement.innerText = question.question
+ 
+   optElement.innerHTML = "";
+     
+    question.options.forEach(option => {
+        let button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", function(){
+            checkAnswer(option, question.correct)
+       
+            currentQuestionIndex++; 
+            console.log(questionsArray.length)
+           
+            if(currentQuestionIndex < questionsArray.length){
+                showQuestion(questionsArray[currentQuestionIndex]);
+            } else{
+                console.log("i run out of questions")
+                stopQuiz();
+            };
+            
+        });
+        optElement.appendChild(button);
+    });
+    // console.log(options);
 };
+
+function checkAnswer(selectedOption, correctOption){
+    if(selectedOption === correctOption){
+        console.log("correct")
+    }else {
+        console.log("incorrect")
+        timeLeft--
+    }
+}
+
 
 
 function beginTimer(){
-    
     beginQuiz();
-
-    let timeCountElement = document.getElementById("timeCount"); 
-
-  timer = setInterval(function(){ 
-
-    
-
+     
+    timer = setInterval(function(){ 
     timeCountElement.textContent = "Time Left: " + timeLeft + " seconds";
-
 
     if(timeLeft === 0){
         timeCountElement.textContent = "Quiz Over"
-        clearInterval(timer);
         stopQuiz();
     }
     timeLeft--;
-
-console.log(timeLeft)
   }, 1000);
 }; 
 
 
+function stopQuiz(){
+    timeCountElement.textContent = "Your Score " + timeLeft;
+
+    // submitHighScore(currentScore);
+
+    clearInterval(timer);
+
+    quesOptContainer.classList.add("hide");
+
+    initialsInputContainer.classList.remove("hide");
+}
+
+
+function submitHighScore(){ 
+    let currentScore = timeCountElement.innerText; 
+
+    let initials = document.getElementById("inputBar").value;
+
+    console.log(initials);
+
+    console.log(currentScore);
+
+    let highScores = JSON.parse(localStorage.getItem("highScores")) || []; 
+
+    highScores.push({initials:initials, currentScore:currentScore})
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    
+    //displayHighScores();
+}
 
 
 
 
 
 
+// this runs when the page is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    let begbtn = document.getElementById("begbtn");
+    begbtn.addEventListener("click", beginTimer);
 
+    let quesOptContainer =document.getElementById("quesOptContainer"); 
+    
+    let initialsInputContainer = document.querySelector("#initialsInputContainer");
 
+    let submitScoreBtn = document.getElementById("submitScoreBtn"); 
 
+    submitScoreBtn.addEventListener("click", submitHighScore)
 
+    // console.log(initialsInputContainer);
 
-let begbtn = document.getElementById("begbtn");
-begbtn.addEventListener("click", beginTimer);
+    //document.getElementById("ques").innerText = questions.question
 
-
-
-
-
-let ansbtn = document.getElementById("ansbtn");
-
-
-document.getElementById("ques").innerText = questions.question
-
-
-
-
-let quesOptContainer =document.getElementById("quesOptContainer"); 
-
-
-
-console.log(document.getElementById("begbtn"));
-
-
-console.log(quesOptContainer);
-
-
-
+    let ansbtn = document.getElementById("ansbtn");
+    
+    // console.log(document.getElementById("begbtn"));
+    
+    // console.log(quesOptContainer);
+    
+});

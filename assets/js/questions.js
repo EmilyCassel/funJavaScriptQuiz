@@ -1,4 +1,4 @@
-const questions = [
+const questionsArray = [
     {
         question: "How many stomachs does a cow have?",
         options: ["one", "two", "three", "four", "five"],

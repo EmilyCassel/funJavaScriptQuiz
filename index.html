@@ -18,24 +18,39 @@
     <div>
         <p id="timeCount"></p>
     </div>
-    <p id = "quesOptContainer">
-        <div id="ques">
-        </div>
-        <div id="options">
-        </div>
-    </p>   
-    <div class="hiscore">
+        <div id ="quesOptContainer" class="hide">
+            <div id="ques">
+            </div>
+            <div id="options">
+              
+            </div>
+        </div>   
+
+
+    <div id="initialsInputContainer" class="hide">
+        <p>Your Score: <span id="timeLeft"></span></p>
+        <input type="text" id="inputBar" placeholder="Initials">
+        <button id="submitScoreBtn">Submit Initials</button>
+        <p>input your initials and hit submit to see how you rank against your classmates</p>
+        <button id="highScores">High Scores List</button>
     </div>
+
+
+    <div id="highScores">
+        <p id="highScoresList"></p>
+        <p id="yourHighScore"></p>
+    </div>
+
 
     <script src="assets/js/questions.js"></script>
 
+    <script src="assets/js/highscores.js"></script>
+
     <script src="assets/js/script.js"></script>
 
-    <script src="assets/js/highscores.js"></script>
+    
 </body>
 <footer>
-    <p>make the set up of html make the buttons they wont work but you will have the wire framing </p>
-
 </footer>
 
 </html>
