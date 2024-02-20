@@ -84,6 +84,9 @@ function stopQuiz(){
 }
 
 
+
+
+
 function submitHighScore(){ 
     let currentScore = timeCountElement.innerText; 
 
@@ -98,19 +101,20 @@ function submitHighScore(){
     highScores.push({initials:initials, currentScore:currentScore})
 
     localStorage.setItem("highScores", JSON.stringify(highScores));
-    
-    //displayHighScores();
 }
 
-
-
-
+// function displayHighScores(){
+//     console.log("clicked")
+// }
 
 
 // this runs when the page is loaded
 document.addEventListener('DOMContentLoaded', function() {
     let begbtn = document.getElementById("begbtn");
     begbtn.addEventListener("click", beginTimer);
+
+    let highScoresBtn = document.getElementById("highScoresBtn"); 
+    highScoresBtn.addEventListener("click", displayHighScores)
 
     let quesOptContainer =document.getElementById("quesOptContainer"); 
     
