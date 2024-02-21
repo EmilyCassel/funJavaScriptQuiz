@@ -6,7 +6,7 @@ let timeCountElement = document.getElementById("timeCount");
 
 
 var timer; 
-let timeLeft = 20; //amount of time want(in seconds)
+let timeLeft = 30; //amount of time want(in seconds)
 
 function beginQuiz(){
     begbtn.classList.add("hide");
@@ -67,7 +67,7 @@ function beginTimer(){
         stopQuiz();
     }
     timeLeft--;
-  }, 1000);
+  }, 3000);
 }; 
 
 
@@ -91,10 +91,6 @@ function submitHighScore(){
     let currentScore = timeCountElement.innerText; 
 
     let initials = document.getElementById("inputBar").value;
-
-    console.log(initials);
-
-    console.log(currentScore);
 
     let highScores = JSON.parse(localStorage.getItem("highScores")) || []; 
 
